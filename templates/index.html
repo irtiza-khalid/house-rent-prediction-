@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>RENT</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin-bottom: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+      margin-top: 30px;
+    }
+    .container {
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    body {
+      background-color: #f5f5f5;
+    }
+    .graph-image {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h1 class="text-center">PREDICT RENT</h1>
+
+          <form action="{{ url_for('predict') }}" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg" name="Number of bedrooms" placeholder="BHK" required="required">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg" name="Size (in sqft)" placeholder="Size" required="required">
+            </div>
+            <div class="form-group">
+              <label for="City">Choose a city:</label>
+              <select class="form-control form-control-lg" name="City" id="City">
+                <option value="5">Mumbai</option>
+                <option value="4">Bangalore</option>
+                <option value="3">Hyderabad</option>
+                <option value="2">Delhi</option>
+                <option value="1">Chennai</option>
+                <option value="0">Kolkata</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="Furnishing Status">Choose a Furnishing Status:</label>
+              <select class="form-control form-control-lg" name="Furnishing Status" id="Furnishing Status">
+                <option value="2">Furnished</option>
+                <option value="1">Semi-Furnished</option>
+                <option value="0">Unfurnished</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control form-control-lg" name="Number of Bathrooms" placeholder="Bathroom" required="required">
+            </div>
+            <button type="submit" class="btn btn-primary">Predict Rent</button>
+          </form>
+
+          {% if prediction_text %}
+            <h3 class="text-center">{{ prediction_text }}</h3>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h3 class="text-center">Correlation Matrix</h3>
+          <div class="graph-content">
+            <img src="static\plots\correlation_matrix.png" alt="correlation_matrix" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h3 class="text-center">Histogram</h3>
+          <div class="graph-content">
+            <img src="static\plots\histograms.png" alt="Graph 2" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h3 class="text-center">Learning Curves</h3>
+          <div class="graph-content">
+            <img src="static\plots\learning_curves.png" alt="Graph 3" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h3 class="text-center">Predicted vs Actual</h3>
+          <div class="graph-content">
+            <img src="static\plots\predicted_vs_actual.png" alt="Graph 4" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <h3 class="text-center">Scatter Plot Matrix</h3>
+          <div class="graph-content">
+            <img src="static\plots\scatter_plot_matrix.png" alt="Graph 5" class="graph-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
